@@ -4,23 +4,221 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Augusto Alejandro | Engenharia de Software</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0b0f19;
+      --bg-card: #131929;
+      --accent: #00c26f;
+      --accent-dim: rgba(0,194,111,0.12);
+      --accent-border: rgba(0,194,111,0.3);
+      --text-primary: #e8edf5;
+      --text-secondary: #8a9bbf;
+      --text-muted: #5a6a8a;
+      --border: rgba(255,255,255,0.06);
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background-color: var(--bg);
+      color: var(--text-primary);
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    /* HERO */
+    header {
+      position: relative;
+      text-align: center;
+      padding: 64px 24px 52px;
+      border-bottom: 1px solid var(--border);
+      overflow: hidden;
+    }
+    header::before {
+      content: '';
+      position: absolute;
+      top: -60px; left: 50%; transform: translateX(-50%);
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(0,194,111,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .avatar-wrapper {
+      position: relative;
+      display: inline-block;
+      margin-bottom: 20px;
+    }
+    .avatar-wrapper img {
+      width: 120px; height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid var(--accent);
+      display: block;
+    }
+    .avatar-placeholder {
+      width: 120px; height: 120px;
+      border-radius: 50%;
+      background: var(--accent-dim);
+      border: 3px solid var(--accent);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 40px; color: var(--accent); font-weight: 700;
+    }
+    .avatar-ring {
+      position: absolute; inset: -6px;
+      border-radius: 50%;
+      border: 1px solid var(--accent-border);
+    }
+    header h1 {
+      font-size: 2.4rem; font-weight: 700;
+      letter-spacing: -0.03em;
+      color: var(--text-primary);
+      margin-bottom: 6px;
+    }
+    header h1 span { color: var(--accent); }
+    .header-sub {
+      color: var(--text-secondary);
+      font-size: 0.78rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    .header-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      margin-top: 14px;
+      background: var(--accent-dim);
+      border: 1px solid var(--accent-border);
+      color: var(--accent);
+      font-size: 0.78rem; font-weight: 600;
+      padding: 5px 16px;
+      border-radius: 999px;
+    }
+    .dot {
+      width: 6px; height: 6px;
+      background: var(--accent); border-radius: 50%;
+      animation: pulse 2s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%,100% { opacity:1; } 50% { opacity:0.3; }
+    }
+
+    /* LAYOUT */
+    .container {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 0 20px 60px;
+    }
+
+    /* CARDS */
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px 30px;
+      margin-top: 22px;
+      transition: border-color 0.2s;
+    }
+    .card:hover { border-color: var(--accent-border); }
+
+    .section-label {
+      font-size: 0.68rem; font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 14px;
+    }
+    .card p { color: var(--text-secondary); font-size: 0.93rem; }
+
+    /* TAGS */
+    .tag-list { display: flex; flex-wrap: wrap; gap: 9px; list-style: none; }
+    .tag-list li {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      color: var(--text-secondary);
+      font-size: 0.82rem;
+      padding: 5px 14px;
+      border-radius: 8px;
+    }
+
+    /* FORMAÇÃO */
+    .edu-item { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+    .edu-title { font-weight: 600; color: var(--text-primary); font-size: 0.95rem; }
+    .edu-sub { color: var(--text-muted); font-size: 0.84rem; margin-top: 2px; }
+    .edu-year {
+      background: var(--accent-dim); color: var(--accent);
+      font-size: 0.74rem; font-weight: 600;
+      padding: 3px 10px; border-radius: 6px; white-space: nowrap;
+    }
+
+    /* PROJETOS */
+    .project-item { padding: 16px 0; border-bottom: 1px solid var(--border); }
+    .project-item:first-child { padding-top: 0; }
+    .project-item:last-child { border-bottom: none; padding-bottom: 0; }
+    .project-year { font-size: 0.74rem; color: var(--accent); font-weight: 600; margin-bottom: 4px; }
+    .project-name { font-weight: 600; color: var(--text-primary); font-size: 0.94rem; margin-bottom: 4px; }
+    .project-desc { color: var(--text-secondary); font-size: 0.87rem; }
+
+    /* RECOMENDAÇÃO */
+    .recommendation-letter {
+      background: linear-gradient(135deg, rgba(0,194,111,0.05), var(--bg-card));
+      border-color: var(--accent-border);
+    }
+    .rec-body {
+      color: var(--text-secondary); font-size: 0.9rem; font-style: italic;
+      border-left: 3px solid var(--accent);
+      padding-left: 16px; margin-bottom: 18px; line-height: 1.8;
+    }
+    .rec-body p { color: var(--text-secondary); font-size: 0.9rem; }
+    .signature { margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--border); }
+    .signature p { font-size: 0.84rem; color: var(--text-muted); }
+    .signature strong { color: var(--text-primary); }
+
+    /* IDIOMAS */
+    .lang-list { list-style: none; display: grid; gap: 11px; }
+    .lang-item { display: flex; justify-content: space-between; align-items: center; }
+    .lang-name { font-size: 0.92rem; color: var(--text-secondary); }
+    .lang-level {
+      font-size: 0.74rem; font-weight: 500; color: var(--text-muted);
+      background: rgba(255,255,255,0.04); border: 1px solid var(--border);
+      padding: 2px 10px; border-radius: 6px;
+    }
+
+    /* CONTATO */
+    .contact-grid { display: flex; flex-direction: column; gap: 13px; }
+    .contact-item {
+      display: flex; align-items: center; gap: 12px;
+      text-decoration: none; color: var(--text-secondary);
+      font-size: 0.9rem; transition: color 0.2s;
+    }
+    .contact-item:hover { color: var(--accent); }
+    .contact-icon {
+      width: 36px; height: 36px;
+      background: var(--accent-dim); border: 1px solid var(--accent-border);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .contact-icon svg { width: 16px; height: 16px; fill: var(--accent); }
+
+    /* FOOTER */
+    footer {
+      text-align: center; padding: 28px;
+      color: var(--text-muted); font-size: 0.76rem;
+      border-top: 1px solid var(--border); margin-top: 36px;
+    }
+
+    @media (max-width: 540px) {
+      .card { padding: 20px 16px; }
+      header { padding: 48px 18px 38px; }
+      header h1 { font-size: 1.9rem; }
+      .edu-item { flex-direction: column; gap: 6px; }
+    }
+  </style>
 </head>
 <body>
 
-  <!-- HERO -->
   <header>
     <div class="avatar-wrapper">
-      <!--
-        FOTO: substitua a linha abaixo pelo caminho da sua foto.
-        Exemplo: <img src="foto.jpg" alt="Augusto Alejandro">
-        Se ainda não tiver a foto, deixe o placeholder abaixo.
-      -->
+      <!-- FOTO: troque a linha abaixo pela sua imagem -->
+      <!-- <img src="foto.jpg" alt="Augusto Alejandro"> -->
       <div class="avatar-placeholder">AA</div>
-      <!-- <img src="SUA_FOTO_AQUI.jpg" alt="Augusto Alejandro"> -->
       <div class="avatar-ring"></div>
     </div>
     <h1>Augusto <span>Alejandro</span></h1>
@@ -33,13 +231,11 @@
 
   <div class="container">
 
-    <!-- PERFIL -->
     <div class="card">
       <p class="section-label">Sobre</p>
       <p>Estudante de Engenharia de Software com interesse em programação, lógica de desenvolvimento e criação de soluções tecnológicas. Este portfólio apresenta minha trajetória acadêmica, habilidades e projetos desenvolvidos durante minha formação.</p>
     </div>
 
-    <!-- FORMAÇÃO -->
     <div class="card">
       <p class="section-label">Formação</p>
       <div class="edu-item">
@@ -51,7 +247,6 @@
       </div>
     </div>
 
-    <!-- HABILIDADES TÉCNICAS -->
     <div class="card">
       <p class="section-label">Habilidades Técnicas</p>
       <ul class="tag-list">
@@ -61,26 +256,15 @@
       </ul>
     </div>
 
-    <!-- IDIOMAS -->
     <div class="card">
       <p class="section-label">Idiomas</p>
       <ul class="lang-list">
-        <li class="lang-item">
-          <span class="lang-name">Português (Brasil)</span>
-          <span class="lang-level">Nativo</span>
-        </li>
-        <li class="lang-item">
-          <span class="lang-name">Inglês</span>
-          <span class="lang-level">Intermediário</span>
-        </li>
-        <li class="lang-item">
-          <span class="lang-name">Espanhol</span>
-          <span class="lang-level">Básico</span>
-        </li>
+        <li class="lang-item"><span class="lang-name">Português (Brasil)</span><span class="lang-level">Nativo</span></li>
+        <li class="lang-item"><span class="lang-name">Inglês</span><span class="lang-level">Intermediário</span></li>
+        <li class="lang-item"><span class="lang-name">Espanhol</span><span class="lang-level">Básico</span></li>
       </ul>
     </div>
 
-    <!-- COMPETÊNCIAS -->
     <div class="card">
       <p class="section-label">Competências</p>
       <ul class="tag-list">
@@ -93,7 +277,6 @@
       </ul>
     </div>
 
-    <!-- PROJETOS -->
     <div class="card">
       <p class="section-label">Projetos & Experiências</p>
       <div class="project-item">
@@ -108,7 +291,6 @@
       </div>
     </div>
 
-    <!-- ATESTADO DE RECOMENDAÇÃO -->
     <div class="card recommendation-letter">
       <p class="section-label">Atestado de Recomendação</p>
       <div class="rec-body">
@@ -127,37 +309,27 @@
       </div>
     </div>
 
-    <!-- CONTATO -->
     <div class="card">
       <p class="section-label">Contato</p>
       <div class="contact-grid">
-
         <a href="mailto:alejandro.augusto.eng@gmail.com" class="contact-item">
           <span class="contact-icon">
-            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/>
-            </svg>
+            <svg viewBox="0 0 24 24"><path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/></svg>
           </span>
           alejandro.augusto.eng@gmail.com
         </a>
-
-        <a href="https://www.linkedin.com/in/" target="_blank" rel="noopener" class="contact-item">
+        <a href="https://www.linkedin.com/in/SEUPERFIL" target="_blank" rel="noopener" class="contact-item">
           <span class="contact-icon">
-            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-            </svg>
+            <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
           </span>
-          LinkedIn — adicione seu perfil aqui
+          LinkedIn — linkedin.com/in/SEUPERFIL
         </a>
-
       </div>
     </div>
 
   </div>
 
-  <footer>
-    © 2026 Augusto Alejandro de Melo Alves · Engenharia de Software
-  </footer>
+  <footer>© 2026 Augusto Alejandro de Melo Alves · Engenharia de Software</footer>
 
 </body>
 </html>
